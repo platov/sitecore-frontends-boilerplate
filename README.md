@@ -13,7 +13,7 @@ This projects aims to be a starting point to making HTML markup for sitecore sol
 1. Install dependencies &mdash; `npm install`
 1. Install Gulp globally &mdash; `npm install gulp-cli -g`
 
-## Useage
+## Usage
 `gulp` &mdash; build project with production or development settings related to host ```process.env.NODE_ENV``` variable  
 `gulp prod` &mdash; build project with production settings  
 `gulp dev` &mdash; build project with development settings 
