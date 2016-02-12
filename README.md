@@ -28,4 +28,4 @@ This task runs webpack-dev-server with hot-module-replacement plugin.
   
 By default webpack-dev-server configured to listen on localhost:8080  
   
-hot-module-replacement plugin allows You to see your code changes without refrashing the page. [read more](https://webpack.github.io/docs/hot-module-replacement.html)
+hot-module-replacement plugin allows you to see your code changes without refreshing the page. [read more](https://webpack.github.io/docs/hot-module-replacement.html)
