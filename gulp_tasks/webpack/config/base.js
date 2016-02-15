@@ -6,7 +6,6 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 var extractHtmlEntries = new ExtractTextPlugin(`[name].html`),
     baseEntries, configuredEntries, entry;
 
-const DIST_PATH = path.resolve('dist');
 const CONTEXT_PATH = path.resolve('src');
 const EXTRACT = ExtractTextPlugin.extract();
 
@@ -84,6 +83,10 @@ module.exports = {
     resolve: {
         root: path.resolve('.'),
 
-        extensions: ['', '.json', '.js', '.scss', '.html']
+        extensions: ['', '.json', '.js', '.scss', '.html'],
+
+        alias: {
+            libs  : path.resolve(CONTEXT_PATH, 'scripts/libs')
+        }
     }
 };
