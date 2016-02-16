@@ -1,7 +1,11 @@
 import mediator from './mediator';
 
-setTimeout(()=> {
+$(function () {
     if (window.Sitecore) {
-        require('./chromeTypes');
+        frames[0].onload = function () {
+            frames[0].window.require(['/-/speak/v1/ExperienceEditor/ExperienceEditor.js'], function () {
+                require('./chromeTypes');
+            });
+        }
     }
-}, 0);
+});

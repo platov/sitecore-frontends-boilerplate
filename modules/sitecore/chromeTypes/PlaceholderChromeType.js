@@ -63,13 +63,13 @@ override('deleteControl', Chrome.prototype, null, function (data, chrome) {
  * Fire events into the DOM
  * */
 mediator.on(EVENT_INSERT, function (placeholderElem, renderElem, data) {
-    $.event.trigger(EVENT_INSERT, data, renderElem, false);
+    $.event.trigger(EVENT_INSERT, data, renderElem[0], false);
 });
 
 mediator.on(EVENT_MOVE, function (placeholderElem, renderElem, data) {
-    $.event.trigger(EVENT_MOVE, data, renderElem, false);
+    $.event.trigger(EVENT_MOVE, data, renderElem[0], false);
 });
 
 mediator.on(EVENT_POP, function (placeholderElem, renderElem, data) {
-    $.event.trigger(EVENT_POP, data, renderElem, false);
+    $.event.trigger(EVENT_POP, data, renderElem[0], false);
 });

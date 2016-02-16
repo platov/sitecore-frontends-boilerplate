@@ -29,9 +29,9 @@ override('onDelete', Chrome.prototype, null, function () {
  * Fire events into the DOM
  * */
 mediator.on(EVENT_CHANGE, function (placeholderElem, renderElem, data) {
-    $.event.trigger(EVENT_CHANGE, data, renderElem, false);
+    $.event.trigger(EVENT_CHANGE, data, renderElem[0], false);
 });
 
 mediator.on(EVENT_DELETE, function (placeholderElem, renderElem, data) {
-    $.event.trigger(EVENT_DELETE, data, renderElem, false);
+    $.event.trigger(EVENT_DELETE, data, renderElem[0], false);
 });
