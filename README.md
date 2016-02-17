@@ -16,7 +16,7 @@ This projects aims to be a starting point to making HTML markup for sitecore sol
 ## Usage
 `gulp` &mdash; build project with production or development settings related to host ```process.env.NODE_ENV``` variable  
 `gulp prod` &mdash; build project with production settings  
-`gulp dev` &mdash; build project with development settings 
+`gulp server` &mdash; build project with development settings 
 
 ## Production build
 This task will optimize html and javascript source code using [html-minifier](https://github.com/kangax/html-minifier) and [uglifyJS2](https://github.com/mishoo/UglifyJS2), bundle and put to the distribution folder

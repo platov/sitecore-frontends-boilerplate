@@ -1,36 +1,21 @@
 import gutil from 'gulp-util'
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-import boilerplateConfig from '../../config';
+import server from './server';
+import compiler from './compiler';
 
 module.exports = function (ENV) {
     return function (callback) {
-        var config = require(`./config/${ENV}`),
-            compiler = webpack(config);
+        var config = require(`./config/${ENV}`);
 
-        if(ENV === 'production') {
-            compiler.run(function (err, stats) {
-                if (err) {
-                    throw new gutil.PluginError("webpack", err);
-                }
-
-                gutil.log("[webpack]", stats.toString({
-                    colors : true,
-                    hash   : false,
-                    version: false,
-                    assets : false,
-                    chunks : false
-                }));
-
-                callback();
-            });
-        } else if (ENV === 'development') {
-            new WebpackDevServer(compiler, {
-                hot        : true,
-                inline     : true
-            }).listen(boilerplateConfig.devServer.port, boilerplateConfig.devServer.host);
-        } else {
-            throw new gutil.PluginError("webpack", 'Unknown ENV variable');
+        switch (ENV) {
+            case 'production':
+                compiler(config, callback);
+                break;
+            case 'development':
+                server(config);
+                break;
+            default:
+                throw new gutil.PluginError("webpack", 'Unknown ENV variable');
         }
+
     }
 };
