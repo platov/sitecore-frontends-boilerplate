@@ -1,4 +1,5 @@
 import mediator from './mediator';
+import {$} from 'libs';
 
 $(function () {
     if (window.Sitecore) {

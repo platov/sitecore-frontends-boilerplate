@@ -13,6 +13,7 @@
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
     "html-loader": "^0.4.0",
+    "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",
     "lodash": "^4.3.0",
     "node-sass": "^3.4.2",
@@ -21,5 +22,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "jquery": "^2.2.0"
   }
 }

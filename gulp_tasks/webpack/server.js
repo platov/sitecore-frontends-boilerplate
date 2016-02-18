@@ -7,10 +7,11 @@ export default function (config) {
     var compiler = webpack(config);
 
     return new WebpackDevServer(compiler, {
-        hot   : true,
-        inline: true,
-        noInfo: true,
-        quiet : true
+        hot        : true,
+        inline     : true,
+        noInfo     : true,
+        quiet      : true,
+        contentBase: './src'
     }).listen(boilerplateConfig.devServer.port, boilerplateConfig.devServer.host, function () {
         console.log(
             chalk.bold.bgBlue.black(

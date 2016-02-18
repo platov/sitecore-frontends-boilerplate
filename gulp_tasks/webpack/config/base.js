@@ -10,7 +10,7 @@ const CONTEXT_PATH = path.resolve('src');
 const EXTRACT = ExtractTextPlugin.extract();
 
 baseEntries = {
-    common: ['babel-polyfill', './scripts/common.js', './styles/common.scss']
+    common: ['babel-polyfill', '../modules/index.js', './scripts/common.js', './styles/common.scss']
 };
 
 
@@ -43,7 +43,7 @@ module.exports = {
             {
                 test   : /\.js$/,
                 loader : 'babel-loader',
-                exclude: /(node_modules)/,
+                exclude: /node_modules|vendor/,
                 query  : {
                     presets: ['es2015', 'stage-0']
                 }
@@ -86,7 +86,7 @@ module.exports = {
         extensions: ['', '.json', '.js', '.scss', '.html'],
 
         alias: {
-            libs  : path.resolve(CONTEXT_PATH, 'scripts/libs')
+            libs: path.resolve(CONTEXT_PATH, 'scripts/libs')
         }
     }
 };
