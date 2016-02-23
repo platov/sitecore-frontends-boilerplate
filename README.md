@@ -9,7 +9,7 @@ This projects aims to be a starting point to making HTML markup for sitecore sol
 * Sources optiomization for production build
 
 ## Install
-1. Clone this repositiory &mdash; `git clone https://github.com/platov/sitecore-frontends-boilerplate.git`
+1. Clone this repository &mdash; `git clone https://github.com/platov/sitecore-frontends-boilerplate.git`
 1. Install dependencies &mdash; `npm install`
 1. Install Gulp globally &mdash; `npm install gulp-cli -g`
 
