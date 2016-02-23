@@ -15,4 +15,8 @@ config.plugins.push(
     })
 );
 
+config.plugins.push(new webpack.DefinePlugin({
+    '_ENV_': `"production"`
+}));
+
 module.exports = config;

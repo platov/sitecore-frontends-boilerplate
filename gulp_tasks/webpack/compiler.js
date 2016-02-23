@@ -1,27 +1,56 @@
+import _ from 'lodash';
 import gutil from 'gulp-util'
 import webpack from 'webpack';
 import boilerplateConfig from '../../config';
-import chalk from 'chalk';
 import path from 'path';
+import chalk from 'chalk';
 
-export default function (config, callback) {
+export default function (config, behavior, callback) {
     var compiler = webpack(config);
 
-    return compiler.run(function (err, stats) {
-        if (err) {
-            throw new gutil.PluginError("webpack", err);
-        }
+    if (behavior === 'development:watch') {
 
-        gutil.log("[webpack]", stats.toString({
-            colors : true,
-            hash   : false,
-            version: false,
-            assets : false,
-            chunks : false
-        }));
+        callback = (native => function () {
+            native();
 
-        callback();
+            callback = function () {
+                console.log(chalk.bold.bgBlue.black(` Watcher: sources rebuilded! `));
+            }
+        })(callback);
 
-        console.log(chalk.bold.bgBlue.black(` Done! All sources processed to '${path.resolve(boilerplateConfig.distPath)}' folder `))
-    });
+        compiler.watch({}, function (err, stats) {
+            if (err) {
+                throw new gutil.PluginError("webpack", err);
+            }
+
+            gutil.log("[webpack]", stats.toString({
+                colors : true,
+                hash   : false,
+                version: false,
+                assets : false,
+                chunks : false
+            }));
+
+            callback();
+        });
+    } else {
+        compiler.run(function (err, stats) {
+            if (err) {
+                throw new gutil.PluginError("webpack", err);
+            }
+
+            gutil.log("[webpack]", stats.toString({
+                colors : true,
+                hash   : false,
+                version: false,
+                assets : false,
+                chunks : false
+            }));
+
+            callback();
+        });
+    }
+
+
+    return compiler;
 }
