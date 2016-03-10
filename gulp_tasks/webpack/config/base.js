@@ -10,7 +10,7 @@ const CONTEXT_PATH = path.resolve('src');
 const EXTRACT = ExtractTextPlugin.extract();
 
 baseEntries = {
-    common: ['babel-polyfill', '../modules/index.js', './scripts/common.js', './styles/common.scss']
+    common: ['babel-polyfill', '../core/index.js', './scripts/common.js', './styles/common.scss']
 };
 
 
