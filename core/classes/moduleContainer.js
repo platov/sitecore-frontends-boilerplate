@@ -5,6 +5,10 @@ export default class ModuleContainer {
     constructor() {
         this.modules = [];
         this.deps = [];
+
+        this.promise = new Promise((res) => {
+            this._ready = res;
+        });
     }
 
     register(data) {
@@ -28,6 +32,9 @@ export default class ModuleContainer {
 
         // Start all
         await this._walkDepsTree(module => module.start());
+
+        //todo: seal
+        this._ready();
     }
 
     async _walkDepsTree(handler) {
@@ -47,5 +54,9 @@ export default class ModuleContainer {
         }
 
         await Promise.all(_.map(modules, resolve))
+    }
+
+    get() {
+
     }
 }

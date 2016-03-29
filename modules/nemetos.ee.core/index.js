@@ -1,12 +1,10 @@
-import mediator from './mediator';
 import {$} from 'libs';
 
-
 export default {
-    name: 'nemetos.ee.chrometypes-wrapper',
+    name: 'nemetos.ee.core',
 
     install: function () {
-
+        require('./viewModels');
     },
 
     start: function () {

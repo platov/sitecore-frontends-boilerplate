@@ -5,6 +5,8 @@ import boilerplateConfig from '../../../config';
 
 var config = _.merge({}, baseConfig);
 
+config.output.publicPath  = boilerplateConfig.publicPath;
+
 // Enable code compression
 config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({

@@ -10,7 +10,7 @@ const CONTEXT_PATH = path.resolve('src');
 const EXTRACT = ExtractTextPlugin.extract();
 
 baseEntries = {
-    common: ['babel-polyfill', '../core/index.js', './scripts/common.js', './styles/common.scss']
+    common: ['babel-polyfill', '../core/_init.js', './scripts/common.js', './styles/common.scss']
 };
 
 
@@ -33,7 +33,6 @@ module.exports = {
 
     output: {
         path         : path.resolve(boilerplateConfig.distPath),
-        publicPath   : boilerplateConfig.publicPath,
         filename     : 'scripts/[name].bundle.js',
         chunkFilename: 'scripts/chunks/[id].js'
     },
@@ -86,7 +85,8 @@ module.exports = {
         extensions: ['', '.json', '.js', '.scss', '.html'],
 
         alias: {
-            libs: path.resolve(CONTEXT_PATH, 'scripts/libs')
+            libs: path.resolve(CONTEXT_PATH, 'scripts/libs'),
+            core: path.resolve('core')
         }
     }
 };

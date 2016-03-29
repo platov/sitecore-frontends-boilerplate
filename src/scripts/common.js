@@ -1,5 +1,15 @@
-/*
- * Main script what included across all pages
- * */
+import {$, Vue} from 'libs';
 
-import '../../core';
+import {promise as corePromise} from 'core';
+
+$(async function () {
+    if(window.top !== window) {
+        return;
+    }
+
+    await corePromise;
+
+    new Vue({
+        el: 'body'
+    });
+});

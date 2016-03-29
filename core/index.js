@@ -1,14 +1,21 @@
 import {_} from 'libs';
+import {Mediator} from 'libs';
 import ModuleContainer from './classes/moduleContainer';
 
-var modules         = require('../modules'),
-    moduleContainer = new ModuleContainer();
+var mediator, modules;
 
-window.moduleContainer = moduleContainer;
+mediator = new Mediator();
+modules = new ModuleContainer();
 
-_.each(modules, module => {
-    moduleContainer.register(module);
+modules.promise.then(function () {
+    // PreRequire all available components
+    require('../src/components');
+
+    // Emit ready event
+    mediator.emit('core:ready');
 });
 
-moduleContainer.startAll();
+export {mediator};
+export {modules};
 
+export var promise = modules.promise;
