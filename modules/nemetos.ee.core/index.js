@@ -8,13 +8,9 @@ export default {
     },
 
     start: function () {
-        $(function () {
+        $(window).load(function () {
             if (window.Sitecore) {
-                frames[0].onload = function () {
-                    frames[0].window.require(['/-/speak/v1/ExperienceEditor/ExperienceEditor.js'], function () {
-                        require('./chromeTypes');
-                    });
-                }
+                require('./chromeTypes');
             }
         });
     }

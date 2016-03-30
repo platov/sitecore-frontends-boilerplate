@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import boilerplateConfig from '../../config';
-import chalk from 'chalk';
 
 export default function (config, behavior, callback) {
     var compiler = webpack(config);

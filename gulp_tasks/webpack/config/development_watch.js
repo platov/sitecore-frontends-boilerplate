@@ -4,7 +4,7 @@ import baseConfig from './base';
 import boilerplateConfig from '../../../config';
 
 var config = _.merge({}, baseConfig, {
-    devtool: 'eval-cheap-module-source-map',    // Enable source-maps
+    devtool: '#eval-cheap-module-source-map',    // Enable source-maps
     watch: true
 });
 
