@@ -1,4 +1,4 @@
-import {_, $, Vue} from 'libs';
+import {_, $, Vue} from 'vendor';
 import {mediator} from 'core';
 import Chrome from './ee.chrome';
 

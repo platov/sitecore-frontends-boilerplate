@@ -1,4 +1,4 @@
-import {$} from 'libs';
+import {$} from 'vendor';
 import override from '../override';
 import {mediator} from 'core';
 
@@ -7,7 +7,7 @@ const EVENT_INSERT = `${EVENT_PREFIX}insert`;
 const EVENT_BEFORE_INSERT = `${EVENT_PREFIX}before-insert`;
 const EVENT_MOVE = `${EVENT_PREFIX}move`;
 const EVENT_POP = `${EVENT_PREFIX}pop`;
-const EVENT_REMOVE_BEFORE = `${EVENT_PREFIX}before-removeRendering`;
+const EVENT_BEFORE_REMOVE = `${EVENT_PREFIX}before-removeRendering`;
 const EVENT_REMOVE = `${EVENT_PREFIX}removeRendering`;
 
 var Chrome = Sitecore.PageModes.ChromeTypes.Placeholder;
@@ -60,7 +60,7 @@ override(
  * */
 override('deleteControl', Chrome.prototype,
     function (data, control) {
-        mediator.emit(EVENT_REMOVE_BEFORE, this.chrome, control)
+        mediator.emit(EVENT_BEFORE_REMOVE, this.chrome, control)
     },
 
     function (data, control) {

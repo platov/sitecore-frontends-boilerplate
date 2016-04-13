@@ -1,4 +1,4 @@
-import {_} from 'libs';
+import {_} from 'vendor';
 
 export default function override(key, object, before, after) {
     var native = object[key],

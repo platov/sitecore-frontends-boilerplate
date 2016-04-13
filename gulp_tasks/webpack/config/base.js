@@ -3,11 +3,12 @@ import path from 'path';
 import boilerplateConfig from '../../../config';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-var extractHtmlEntries = new ExtractTextPlugin(`[name].html`),
-    baseEntries, configuredEntries, entry;
+var extractHtmlEntriesPlugin, extractHtmlEntriesString, baseEntries, configuredEntries, entry;
 
-const CONTEXT_PATH = path.resolve('src');
-const EXTRACT = ExtractTextPlugin.extract();
+
+extractHtmlEntriesPlugin = new ExtractTextPlugin(`[name].html`);
+extractHtmlEntriesString = ExtractTextPlugin.extract();
+
 
 baseEntries = {
     common: ['babel-polyfill', '../core/_init.js', './scripts/common.js', './styles/common.scss']
@@ -15,21 +16,16 @@ baseEntries = {
 
 
 configuredEntries = _.each(boilerplateConfig.entries, function (deps, name, obj) {
-    if (!_.isArray(deps)) {
-        deps = [];
+    obj[name] = _.isArray(deps) ? deps : [];
 
-        obj[name] = deps;
-    }
-
-    deps.unshift(`${EXTRACT}./${name}.html`);
+    deps.unshift(`${extractHtmlEntriesString}./${name}.html`);
 });
 
-entry = _.extend({}, baseEntries, configuredEntries);
 
 module.exports = {
-    context: CONTEXT_PATH,
+    context: path.resolve('src'),
 
-    entry,
+    entry: _.extend({}, baseEntries, configuredEntries),
 
     output: {
         path         : path.resolve(boilerplateConfig.distPath),
@@ -42,7 +38,7 @@ module.exports = {
             {
                 test   : /\.js$/,
                 loader : 'babel-loader',
-                exclude: /node_modules|vendor/,
+                exclude: /node_modules|vendor\\(?!index\.js$)/,
                 query  : {
                     presets: ['es2015', 'stage-0']
                 }
@@ -76,16 +72,14 @@ module.exports = {
     },
 
     plugins: [
-        extractHtmlEntries
+        extractHtmlEntriesPlugin
     ],
 
     resolve: {
-        root: path.resolve('.'),
-
         extensions: ['', '.json', '.js', '.scss', '.html'],
 
         alias: {
-            libs: path.resolve(CONTEXT_PATH, 'scripts/libs'),
+            vendor: path.resolve('vendor'),
             core: path.resolve('core')
         }
     }

@@ -1,4 +1,4 @@
-import {$, Vue} from 'libs';
+import {$, Vue} from 'vendor';
 import Field from './ee.field';
 
 var Image;

@@ -1,4 +1,4 @@
-import {$} from 'libs';
+import {$} from 'vendor';
 import override from '../override';
 import {mediator} from 'core';
 

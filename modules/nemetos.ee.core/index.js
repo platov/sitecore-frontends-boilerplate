@@ -1,4 +1,4 @@
-import {$} from 'libs';
+import {$} from 'vendor';
 
 export default {
     name: 'nemetos.ee.core',

@@ -1,10 +1,10 @@
-import {_, $} from 'libs';
+import {_, $} from 'vendor';
 import override from '../override';
 import {mediator} from 'core';
 
 const EVENT_PREFIX = `field:`;
 const EVENT_CHANGE = `${EVENT_PREFIX}change`;
-const EVENT_BEFORE_CHANGE = `${EVENT_PREFIX}change`;
+const EVENT_BEFORE_CHANGE = `${EVENT_PREFIX}before-change`;
 
 
 var Chrome = Sitecore.PageModes.ChromeTypes.Field;
