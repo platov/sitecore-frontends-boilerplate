@@ -25,7 +25,21 @@ var Chrome = Vue.extend({
          * @return {string}
          * */
         this.getControlId = function () {
-            throw 'Chrome.getControlId must be overridden';
+            var $openTag,
+                chromeSelector = '.scWebEditInput, code[type="text/sitecore"][kind="open"]';
+
+            if (this._isFragment) {
+                $openTag = $(this.getFragmentChild()).filter(chromeSelector);
+            } else {
+                $openTag = $(this.$el).children(chromeSelector);
+            }
+
+
+            if (!$openTag.length) {
+                throw 'VUEEE: Failed to determine own opening ChromeTag';
+            }
+
+            return $openTag.attr('id').replace('_edit', '');
         };
 
         /**

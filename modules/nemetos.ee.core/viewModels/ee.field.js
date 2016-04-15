@@ -10,18 +10,6 @@ Field = Chrome.extend({
             namespace: 'field',
             events   : ['change']
         });
-
-        this.getControlId = function () {
-            var $openTag;
-
-            $openTag = $(this.getFragmentChild()).filter('code[type="text/sitecore"][kind="open"]');
-
-            if (!$openTag.length) {
-                throw 'VUEEE: Failed to determine own opening ChromeTag';
-            }
-
-            return $openTag.attr('id').replace('_edit', '');
-        };
     }
 });
 
