@@ -2,6 +2,12 @@
   "name": "sitecore-frontends-boilerplate",
   "version": "0.0.0",
   "author": "Alexey Platov",
+  "scripts": {
+    "build": "node webpack/compiler.js",
+    "build-prod": "set NODE_ENV=production&&node webpack/compiler.js",
+    "build-dev": "set NODE_ENV=development&&node webpack/compiler.js",
+    "server": "set NODE_ENV=development&&node webpack/server.js"
+  },
   "devDependencies": {
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
@@ -11,7 +17,6 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "gulp": "^3.9.1",
     "html-loader": "^0.4.0",
     "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",

@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import path from 'path';
-import boilerplateConfig from '../../../config';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+var _ = require('lodash');
+var path = require('path');
+var boilerplateConfig = require('../../config');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var extractHtmlEntriesPlugin, extractHtmlEntriesString, baseEntries, configuredEntries, entry;
 

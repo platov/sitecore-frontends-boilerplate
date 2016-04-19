@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     publicPath: '/',
     distPath  : 'dist',
 
@@ -10,4 +10,4 @@ export default {
         host: 'localhost',
         port: '8080'
     }
-}
+};

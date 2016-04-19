@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import webpack from 'webpack';
-import baseConfig from './base';
-import boilerplateConfig from '../../../config';
+var _ = require('lodash');
+var webpack = require('webpack');
+var baseConfig = require('./base');
+var boilerplateConfig = require('../../config');
 
 var config = _.merge({}, baseConfig);
 
