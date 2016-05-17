@@ -1,7 +1,10 @@
 import {_, $, Vue} from 'vendor';
 import {mediator} from 'core';
 
-var Chrome = Vue.extend({
+
+export default Vue.component('ee-chrome', {
+    name: 'Chrome',
+
     created: function () {
         this._chrome = void 0;
 
@@ -12,11 +15,26 @@ var Chrome = Vue.extend({
          * @param {Array} data.events
          * */
         this.syncMediator = function (data) {
-            this._syncMediatorData = data;
+            var self = this;
 
-            _.each(data.events, event => {
-                mediator.on(`${data.namespace}:before-${event}`, this._mediatorHandler);
-                mediator.on(`${data.namespace}:${event}`, this._mediatorHandler);
+            this._mediatorSubscribers = _.reduce(data.events, (result, event) => {
+                var evBefore = `${data.namespace}:before-${event}`,
+                    ev = `${data.namespace}:${event}`;
+
+                result.push(
+                    {
+                        event: evBefore, handler: (...args) => self._mediatorHandler(...args, evBefore)
+                    },
+                    {
+                        event: ev, handler: (...args) => self._mediatorHandler(...args, ev)
+                    }
+                );
+
+                return result;
+            }, []);
+
+            _.each(this._mediatorSubscribers, subscriber => {
+                mediator.on(subscriber.event, subscriber.handler);
             });
         };
 
@@ -61,7 +79,7 @@ var Chrome = Vue.extend({
             }
 
             args = [].slice.apply(arguments, [0]);
-            event = args.pop().namespace;
+            event = args.pop();
             action = event.match(/:([^:]+?)$/);
 
             if (!action) {
@@ -96,22 +114,25 @@ var Chrome = Vue.extend({
             }
 
             this.$options.name = `${this._chrome.data.displayName} [${this._chrome.type.key()}]`;
+
+            this.$emit('chromeAvailable', this._chrome);
         }, this);
+
+        if (!window.Sitecore || !window.Sitecore.WebEditSettings.editing) {
+            return;
+        }
 
         mediator.once('chromeManager:resetChromes', this._linkChromeInstance);
     },
 
     beforeDestroy: function () {
-        // Unsubscribe before this VM destroy for prevent memory leak
-        if (this._syncMediatorData) {
-            _.each(this._syncMediatorData.events, event => {
-                mediator.off(`${this._syncMediatorData.namespace}:before-${event}`, this._mediatorHandler);
-                mediator.off(`${this._syncMediatorData.namespace}:${event}`, this._mediatorHandler);
-            });
+        if (!window.Sitecore || !window.Sitecore.WebEditSettings.editing) {
+            return;
         }
+
+        // Unsubscribe before this VM destroy for prevent memory leak
+        _.each(this._mediatorSubscribers, subscriber => {
+            mediator.removeListener(subscriber.event, subscriber.handler);
+        });
     }
 });
-
-Vue.component('ee-chrome', Chrome);
-
-export default Chrome;

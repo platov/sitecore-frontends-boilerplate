@@ -51,6 +51,12 @@ module.exports = {
             },
 
             {
+                test   : /\.css$/,
+                exclude: /(node_modules)/,
+                loader : 'style!css'
+            },
+
+            {
                 test  : /\.png|gif|jpe?g|eot|svg|ttf|woff|woff2$/,
                 loader: 'file?name=[path][name].[ext]'
             },

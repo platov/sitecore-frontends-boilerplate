@@ -1,9 +1,9 @@
 import {$, Vue} from 'vendor';
 import Field from './ee.field';
 
-var Image;
-
-Image = Field.extend({
+export default Vue.component('ee-image', Field.extend({
+    name: 'ImageField',
+    
     data: function () {
         return {
             src: ''
@@ -11,22 +11,14 @@ Image = Field.extend({
     },
 
     events: {
-        'change': function () {
-            this.updateValue();
+        'setModified': function () {
+            this.fetchValue();
         }
     },
 
     created: function () {
-        this.updateValue = function () {
+        this.fetchValue = function () {
             this.src = this.getFragmentChild().filter('img').attr('src');
         }
-    },
-
-    compiled: function () {
-        this.updateValue();
     }
-});
-
-Vue.component('ee-image', Image);
-
-export default Image;
+}));

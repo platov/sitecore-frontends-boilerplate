@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "author": "Alexey Platov",
   "scripts": {
-    "build": "node webpack/compiler.js",
-    "build-prod": "set NODE_ENV=production&&node webpack/compiler.js",
-    "build-dev": "set NODE_ENV=development&&node webpack/compiler.js",
-    "server": "set NODE_ENV=development&&node webpack/server.js"
+    "build-prod": "node ./webpack production compiler",
+    "build-dev": "node ./webpack development compiler",
+    "server": "node ./webpack development server"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -14,6 +13,7 @@
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "chalk": "^1.1.3",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
@@ -28,6 +28,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "eventemitter3": "^1.2.0",
     "jquery": "^2.2.0",
     "lodash": "^4.3.0",
     "vue": "^1.0.16"

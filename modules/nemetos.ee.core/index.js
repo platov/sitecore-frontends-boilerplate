@@ -9,7 +9,7 @@ export default {
 
     start: function () {
         $(window).load(function () {
-            if (window.Sitecore) {
+            if (window.Sitecore && window.Sitecore.WebEditSettings.editing) {
                 require('./chromeTypes');
             }
         });

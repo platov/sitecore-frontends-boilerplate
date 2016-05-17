@@ -1,4 +1,3 @@
-var gutil = require('gulp-util');
 var webpack = require('webpack');
 var path = require('path');
 var chalk = require('chalk');
@@ -19,10 +18,10 @@ function buildProd() {
 
     compiler.run(function (err, stats) {
         if (err) {
-            throw new gutil.PluginError("webpack", err);
+            throw err;
         }
 
-        gutil.log("[webpack]", stats.toString({
+        console.log("[webpack]", stats.toString({
             colors : true,
             hash   : false,
             version: false,
@@ -30,7 +29,7 @@ function buildProd() {
             chunks : false
         }));
 
-        console.log(chalk.bold.bgBlue.white(` Production build finished! `));
+        console.log(chalk.bold.blue(`Production build finished!`));
     });
 }
 
@@ -38,16 +37,16 @@ function buildDev() {
     var config   = require('./config/development_watch.js'),
         compiler = webpack(config),
         callback = function () {
-            console.log(chalk.bold.bgBlue.white(` Development build finished! `));
+            console.log(chalk.bold.blue(`Development build finished!`));
             callback = () => void 0;
         };
 
     compiler.watch({}, function (err, stats) {
         if (err) {
-            throw new gutil.PluginError("webpack", err);
+            throw err;
         }
 
-        gutil.log("[webpack]", stats.toString({
+        console.log("[webpack]", stats.toString({
             colors : true,
             hash   : false,
             version: false,
@@ -57,6 +56,6 @@ function buildDev() {
 
         callback();
 
-        console.log(chalk.bold.bgBlue.white(` Watcher: sources rebuilded! `));
+        console.log(chalk.bold.blue(`Watcher: sources rebuilded!`));
     });
 }

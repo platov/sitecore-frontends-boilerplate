@@ -2,13 +2,14 @@ import {_, $, Vue} from 'vendor';
 import {mediator} from 'core';
 import Chrome from './ee.chrome';
 
-var Rendering;
 
-Rendering = Chrome.extend({
+export default Vue.component('ee-rendering', Chrome.extend({
+    name: 'Rendering',
+    
     created: function () {
         this.syncMediator({
             namespace: 'rendering',
-            events   : ['update']
+            events: ['update']
         });
 
         this.getControlId = function () {
@@ -34,8 +35,5 @@ Rendering = Chrome.extend({
             this.$destroy();
         });
     }
-});
+}));
 
-Vue.component('ee-rendering', Rendering);
-
-export default Rendering;

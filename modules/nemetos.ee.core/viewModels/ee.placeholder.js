@@ -2,9 +2,9 @@ import {_, $, Vue} from 'vendor';
 import {mediator} from 'core';
 import Chrome from './ee.chrome';
 
-var Placeholder;
+export default Vue.component('ee-placeholder', Chrome.extend({
+    name: 'Placeholder',
 
-Placeholder = Chrome.extend({
     events: {
         'insert': function () {
             this.$compile(this.$el.parentNode);
@@ -17,7 +17,7 @@ Placeholder = Chrome.extend({
 
             Vue.nextTick(() => {
                 this.$compile(this.$el.parentNode);
-                
+
                 Sitecore.PageModes.ChromeManager.resetChromes();
             });
         }
@@ -26,7 +26,7 @@ Placeholder = Chrome.extend({
     created: function () {
         this.syncMediator({
             namespace: 'placeholder',
-            events   : ['insert', 'move', 'pop', 'removeRendering']
+            events: ['insert', 'move', 'pop', 'removeRendering']
         });
 
         this.getControlId = function () {
@@ -45,8 +45,4 @@ Placeholder = Chrome.extend({
             return $openTag.attr('id').replace('_edit', '');
         };
     }
-});
-
-Vue.component('ee-placeholder', Placeholder);
-
-export default Placeholder;
+}));

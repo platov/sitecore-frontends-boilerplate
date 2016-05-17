@@ -12,5 +12,5 @@ return new WebpackDevServer(compiler, {
     quiet      : true,
     contentBase: './src'
 }).listen(boilerplateConfig.devServer.port, boilerplateConfig.devServer.host, function () {
-    console.log(chalk.bold.bgBlue.white(` Done, Server listening at http://${boilerplateConfig.devServer.host}:${boilerplateConfig.devServer.port} `));
+    console.log(chalk.bold.blue(`Done, Server listening at http://${boilerplateConfig.devServer.host}:${boilerplateConfig.devServer.port}`));
 });
