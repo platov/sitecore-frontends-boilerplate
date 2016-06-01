@@ -118,15 +118,17 @@ export default Vue.component('ee-chrome', {
             this.$emit('chromeAvailable', this._chrome);
         }, this);
 
-        if (!window.Sitecore || !window.Sitecore.WebEditSettings.editing) {
+        if (!window.Sitecore || !window.Sitecore.WebEditSettings || !window.Sitecore.WebEditSettings.editing) {
             return;
         }
 
-        mediator.once('chromeManager:resetChromes', this._linkChromeInstance);
+        mediator.once('chromeManager:resetChromes', () => {
+            this._linkChromeInstance();
+        });
     },
 
     beforeDestroy: function () {
-        if (!window.Sitecore || !window.Sitecore.WebEditSettings.editing) {
+        if (!window.Sitecore || !window.Sitecore.WebEditSettings || !window.Sitecore.WebEditSettings.editing) {
             return;
         }
 

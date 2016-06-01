@@ -21,7 +21,7 @@ export default Vue.component('ee-text', Field.extend({
         this.fetchValue = function () {
             var fragmentChildNodes = [].slice.call(this._fragment.childNodes);
             
-            if(window.Sitecore && window.Sitecore.WebEditSettings.editing) {
+            if(window.Sitecore && window.Sitecore.WebEditSettings && window.Sitecore.WebEditSettings.editing) {
                 this.value = $(fragmentChildNodes).filter('.scWebEditInput').text();
             } else {
                 this.value = $(fragmentChildNodes).text().trim();

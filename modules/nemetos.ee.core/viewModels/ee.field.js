@@ -14,7 +14,7 @@ export default Vue.component('ee-field', Chrome.extend({
     },
 
     created: function () {
-        if (!window.Sitecore || !window.Sitecore.WebEditSettings.editing) {
+        if (!window.Sitecore || !window.Sitecore.WebEditSettings || !window.Sitecore.WebEditSettings.editing) {
             return;
         }
 
