@@ -34,7 +34,7 @@ export default {
      * @return {Promise|undefined}
      * */
     start: function () {
-        $(window).load(function () {
+        $(window).on('load', function () {
             if (window.Sitecore && window.Sitecore.WebEditSettings && window.Sitecore.WebEditSettings.editing) {
                 require('./chromeTypes');
                 Sitecore.PageModes.ChromeManager.resetChromes()
