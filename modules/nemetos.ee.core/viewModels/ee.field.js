@@ -4,7 +4,13 @@ import Chrome from './ee.chrome';
 
 export default Vue.component('ee-field', Chrome.extend({
     name: 'Field',
-    
+
+    props: {
+        map: {
+            type: String
+        }
+    },
+
     events: {
         'chromeAvailable': function () {
             this._chrome.element.bind("blur", () => this.$emit('blur'));

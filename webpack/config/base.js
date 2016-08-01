@@ -1,31 +1,33 @@
-var _ = require('lodash');
-var path = require('path');
-var boilerplateConfig = require('../../config');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var _ = require('lodash'),
+    path = require('path'),
+    webpack = require('webpack'),
+    boilerplateConfig = require('../../config'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
 
-var extractHtmlEntriesPlugin, extractHtmlEntriesString, baseEntries, configuredEntries, entry;
+    extractHtmlEntriesPlugin = new ExtractTextPlugin(`[name].html`),
+    extractHtmlEntriesString = ExtractTextPlugin.extract(),
 
-
-extractHtmlEntriesPlugin = new ExtractTextPlugin(`[name].html`);
-extractHtmlEntriesString = ExtractTextPlugin.extract();
-
-
-baseEntries = {
-    common: ['babel-polyfill', '../core/_init.js', './scripts/common.js', './styles/common.scss']
-};
+    entry;
 
 
-configuredEntries = _.each(boilerplateConfig.entries, function (deps, name, obj) {
-    obj[name] = _.isArray(deps) ? deps : [];
+entry = _.reduce(boilerplateConfig.entries, function (result, value, key) {
+    value.unshift('babel-polyfill', '../core/_init.js');
 
-    deps.unshift(`${extractHtmlEntriesString}./${name}.html`);
-});
+    if (/\.html$/.test(key)) {
+        value.unshift(`${extractHtmlEntriesString}./${key}`);
+        key = key.match(/^(.+?)\.html$/)[1];
+    }
+
+    result[key] = value;
+
+    return result;
+}, {});
 
 
 module.exports = {
     context: path.resolve('src'),
 
-    entry: _.extend({}, baseEntries, configuredEntries),
+    entry,
 
     output: {
         path         : path.resolve(boilerplateConfig.distPath),
@@ -57,7 +59,7 @@ module.exports = {
             },
 
             {
-                test  : /\.png|gif|jpe?g|eot|svg|ttf|woff|woff2$/,
+                test  : /\.png|gif|jpe?g|eot|svg|ttf|otf|woff|woff2$/,
                 loader: 'file?name=[path][name].[ext]'
             },
 
@@ -78,7 +80,12 @@ module.exports = {
     },
 
     plugins: [
-        extractHtmlEntriesPlugin
+        extractHtmlEntriesPlugin,
+
+        new webpack.optimize.CommonsChunkPlugin({
+            name    : 'commons',
+            filename: "scripts/chunks/commons.js"
+        })
     ],
 
     resolve: {
@@ -86,7 +93,7 @@ module.exports = {
 
         alias: {
             vendor: path.resolve('vendor'),
-            core: path.resolve('core')
+            core  : path.resolve('core')
         }
     }
 };

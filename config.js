@@ -3,7 +3,7 @@ module.exports = {
     distPath  : 'dist',
 
     entries: {
-        home: ['./styles/home.scss']
+        'home.html': ['./scripts/common', './styles/home']
     },
 
     devServer: {

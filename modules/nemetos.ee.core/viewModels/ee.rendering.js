@@ -9,7 +9,7 @@ export default Vue.component('ee-rendering', Chrome.extend({
     created: function () {
         this.syncMediator({
             namespace: 'rendering',
-            events: ['update']
+            events: ['update', 'handleMessage']
         });
 
         this.getControlId = function () {

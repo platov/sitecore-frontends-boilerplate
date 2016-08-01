@@ -7,17 +7,18 @@ export default Vue.component('ee-chrome', {
 
     created: function () {
         this._chrome = void 0;
+        this._mediatorSubscribers = [];
 
         /**
-         * Listen mediator for provided events and handle only related events for this chrome
+         * Listen mediator for provided events and handle, only related to this chrome, events
          * @param {Object} data
          * @param {String} data.namespace
          * @param {Array} data.events
          * */
         this.syncMediator = function (data) {
-            var self = this;
+            var self = this, events;
 
-            this._mediatorSubscribers = _.reduce(data.events, (result, event) => {
+            events = _.reduce(data.events, (result, event) => {
                 var evBefore = `${data.namespace}:before-${event}`,
                     ev = `${data.namespace}:${event}`;
 
@@ -33,9 +34,9 @@ export default Vue.component('ee-chrome', {
                 return result;
             }, []);
 
-            _.each(this._mediatorSubscribers, subscriber => {
-                mediator.on(subscriber.event, subscriber.handler);
-            });
+            this._mediatorSubscribers.push(events);
+
+            _.each(events, subscriber => mediator.on(subscriber.event, subscriber.handler));
         };
 
         /**
@@ -71,10 +72,10 @@ export default Vue.component('ee-chrome', {
          * Handle mediator event
          * @private
          * */
-        this._mediatorHandler = _.bind(function (placeholder) {
+        this._mediatorHandler = _.bind(function (chrome) {
             var args, event, action;
 
-            if (placeholder !== this._chrome) {
+            if (chrome !== this._chrome) {
                 return;
             }
 
@@ -122,8 +123,11 @@ export default Vue.component('ee-chrome', {
             return;
         }
 
-        mediator.once('chromeManager:resetChromes', () => {
-            this._linkChromeInstance();
+        mediator.once('chromeManager:resetChromes', () => this._linkChromeInstance());
+
+        this.syncMediator({
+            namespace: 'chromeControls',
+            events: ['renderCommandTag']
         });
     },
 
@@ -133,8 +137,6 @@ export default Vue.component('ee-chrome', {
         }
 
         // Unsubscribe before this VM destroy for prevent memory leak
-        _.each(this._mediatorSubscribers, subscriber => {
-            mediator.removeListener(subscriber.event, subscriber.handler);
-        });
+        _.chain(this._mediatorSubscribers).flatten().map(subscriber => mediator.removeListener(subscriber.event, subscriber.handler));
     }
 });

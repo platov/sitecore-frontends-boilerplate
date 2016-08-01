@@ -9,8 +9,6 @@ promise = new Promise(res => __resolve = res);
 
 initialize = function () {
     modulesFactory.startAll().then(function () {
-        require('../src/components');
-
         __resolve();
 
         mediator.emit('core:ready');

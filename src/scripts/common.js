@@ -9,6 +9,8 @@ $(async function () {
 
     await corePromise;
 
+    require('../components');
+
     new Vue({
         el: 'body'
     });

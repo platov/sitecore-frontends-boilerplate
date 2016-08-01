@@ -10,6 +10,7 @@ config.output.publicPath  = boilerplateConfig.publicPath;
 // Enable code compression
 config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
+        exclude: /node_modules/,
         sourceMap: false,
         compress : {
             warnings: false
